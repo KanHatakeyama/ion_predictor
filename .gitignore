@@ -121,3 +121,4 @@ descriptor_data/*
 *.pth'
 *.gz
 cache/*
+media/*

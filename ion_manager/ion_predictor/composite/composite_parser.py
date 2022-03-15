@@ -1,5 +1,5 @@
 import pandas as pd
-from ion_predictor.composite.DataUtility import calc_wt_ratio_from_mol_wt, slash_to_list, flatten_list, unnest_dataframe,sort_compounds_by_weight_ratio
+from .DataUtility import calc_wt_ratio_from_mol_wt, slash_to_list, flatten_list, unnest_dataframe,sort_compounds_by_weight_ratio
 import yaml
 import re
 from tqdm import tqdm

@@ -4,11 +4,13 @@ from .forms import UploadFileForm
 from django.http import HttpResponse
 import sys
 from django.http import HttpResponseRedirect
-
+from .ion_predictor.django_wrapper.auto_predictor import screen_predict
 
 # Create your views here.
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
+
+
 
 
 
@@ -21,6 +23,13 @@ def file_upload(request):
             handle_uploaded_file(request.FILES['file'])
             file_obj = request.FILES['file']
             sys.stderr.write(file_obj.name + "\n")
+            df=screen_predict(file_obj.name)
+
+            response = HttpResponse(content_type='text/csv; charset=utf8')
+            response['Content-Disposition'] = 'attachment; filename=users.csv'
+            df.to_csv(path_or_buf=response, encoding='utf_8_sig', index=None)
+            return response 
+
             return HttpResponseRedirect('predict')
     else:
         form = UploadFileForm()
