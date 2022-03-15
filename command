@@ -11,3 +11,5 @@ pip3 install pyyaml
 pip3 install dgl==0.6.1
 pip3 install mordred==1.2.0
 pip3 install openpyxl==3.0.5
+
+pip3 install Django==3.2.12
