@@ -8,7 +8,7 @@ from joblib import Memory
 memory = Memory("cache", verbose=0)
 
 
-setting_path="config/settings.yaml"
+setting_path="settings.yaml"
 with open(setting_path) as file:
     settings= yaml.safe_load(file)
 MAX_SMILES=settings["max_smiles"]
