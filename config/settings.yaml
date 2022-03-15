@@ -1,0 +1,31 @@
+#database path
+#excel_path: "database/20200630LiPolymerDB.xlsx"
+excel_path: "database/20220315LiPolymerDB.xlsx"
+bin_database_path: "cache/database.bin"
+
+#if true, initialize neural descriptors whenever init the neural desc class (use this when a model is changed)
+init_neural_descriptors: True
+
+#pretraining settings
+pretrain_smiles_path: database/polymer_smiles.csv.gz      # path to smiles csv data for pretrain
+num_learning_molecules: 100                               # num of molecules for pretrain
+descriptor_path: cache/descriptors.bin                 # path of dumped molecular desciptors for pretrain
+smiles_path: cache/smiles.bin                          # path of smiles list used for pretrain
+pretrain_y_dim: 1613                                           # dim of y for pretrain
+neural_desc_path: cache/neural_descs.bin
+
+# pretrain ML settings
+
+model_path: cache/model.pth'      # model path
+pretrain_test_size: 0.01                  # test size during pretrain
+random_state: 1 
+batch_size: 32
+lr: 0.001
+epochs: 200
+
+#composite database options
+max_smiles: 6                # max number of smiles to be processed for a composite
+
+#regressor settings
+regressor_path: cache/regressor.bin
+y_label: Conductivity
