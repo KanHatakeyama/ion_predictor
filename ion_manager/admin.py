@@ -8,7 +8,9 @@ from admin_numeric_filter.admin import NumericFilterModelAdmin, SingleNumericFil
 # class ChemicalAdmin(NestedModelAdmin):
 class ChemicalAdmin(ImportExportModelAdmin):
 
-    list_display = ["title", "unique_name", "subtitle", "smiles_thumbnail",
+    list_display = ["title", 
+                    #"unique_name",
+                      "subtitle", "smiles_thumbnail",
                     "created_at", "updated_at",
                     "tag_names",
                    ]
