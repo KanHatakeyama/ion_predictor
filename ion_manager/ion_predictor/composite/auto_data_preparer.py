@@ -20,7 +20,6 @@ def clean_df(original_df):
     parsed_df["Temperature"]=parsed_df["Temperature"].astype(float)
     parsed_df["inorg_contain_ratio(wt)"]=parsed_df["inorg_contain_ratio(wt)"].astype(float)
 
-
     return parsed_df
 
 

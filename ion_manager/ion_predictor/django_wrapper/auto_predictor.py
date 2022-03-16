@@ -7,6 +7,14 @@ import joblib
 import numpy as np
 import copy
 
+
+setting_path="settings.yaml"
+
+with open(setting_path) as file:
+    settings= yaml.safe_load(file)
+
+
+
 def pre_convert(composite_df,compound_df):
     # convert original django-type df into standard format
 
@@ -16,6 +24,7 @@ def pre_convert(composite_df,compound_df):
     composition_data=[]
     for component_record in component_data:
         component_record=[i for i in component_record if i is not None]
+        component_record=[str(i) for i in component_record if i is not np.nan]
         composition="/".join(component_record)
         composition_data.append(composition)
 
@@ -44,12 +53,10 @@ def predict(composite_df,compound_df):
 
     composite_df,compound_df=pre_convert(composite_df,compound_df)
 
-    setting_path="settings.yaml"
-    with open(setting_path) as file:
-        settings= yaml.safe_load(file)
-
     #load regressor
     model,X_columns=joblib.load(settings["regressor_path"])
+
+    y_label=settings["y_label"]
 
     #prepare machine learnable df
     test_df=load_ion_excel(settings,compound_df=compound_df,composite_df=composite_df)
@@ -69,14 +76,8 @@ def predict(composite_df,compound_df):
 
 
 ###################
+"""
 
-setting_path="settings.yaml"
-
-with open(setting_path) as file:
-    settings= yaml.safe_load(file)
-
-
-y_label=settings["y_label"]
 
 def screen_predict(path):
 
@@ -100,3 +101,4 @@ def screen_predict(path):
     test_df["predict"]=pred_y
 
     return test_df
+"""

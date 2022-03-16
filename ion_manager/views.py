@@ -3,13 +3,13 @@ from django.http import HttpResponse
 from .forms import UploadFileForm
 import sys
 from django.http import HttpResponseRedirect
-from .ion_predictor.django_wrapper.auto_predictor import screen_predict
+#from .ion_predictor.django_wrapper.auto_predictor import screen_predict
 import os
 
 # Create your views here.
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
-
+"""
 
 # ------------------------------------------------------------------
 def file_upload(request):
@@ -46,3 +46,4 @@ def handle_uploaded_file(file_obj):
     with open(file_path, 'wb+') as destination:
         for chunk in file_obj.chunks():
             destination.write(chunk)
+"""
