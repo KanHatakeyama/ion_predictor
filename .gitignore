@@ -122,3 +122,5 @@ descriptor_data/*
 *.gz
 cache/*
 media/*
+
+my_memos/*
