@@ -2,6 +2,7 @@ from django.db import models
 #from ckeditor_uploader.fields import RichTextUploadingField
 from .ion_predictor.django_wrapper import parse_smiles
 from django.utils.html import mark_safe
+import numpy as np
 
 # Create your models here.
 # tag
@@ -129,3 +130,10 @@ class Composite(models.Model):
     def unique_name(self):
         return str(self.pk)+"_"+str(self.title)
 
+    @property
+    def temperature_(self):
+        return round(self.temperature,1)
+
+    @property
+    def log_sigma(self):
+        return round(np.log10(self.conductivity),2)

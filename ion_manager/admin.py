@@ -56,9 +56,18 @@ class ChemicalAdmin(ImportExportModelAdmin):
 
 class CompositeAdmin(ImportExportModelAdmin):
 
-    list_display = ["title", "unique_name", "subtitle", 
-                        "temperature","conductivity",
+    list_display = ["title",
+                    # "unique_name",
+                    #  "subtitle", 
+                        "temperature",
+                        "conductivity",
+                        #"log_sigma",
+
                         "component1",
+                        "component2",
+                        "component3",
+                        "mol_ratio",
+                        "wt_ratio",
                     "created_at", "updated_at",
                     "tag_names",
                    ]
