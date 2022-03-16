@@ -11,47 +11,44 @@ import yaml
 random.seed(0)
 
 
-
 def dump(
         settings
-        ):
-        """
-        automatically calculate descriptors for training
-        from smiles data (path) to descriptor data (descriptor path)
+):
+    """
+    automatically calculate descriptors for training
+    from smiles data (path) to descriptor data (descriptor path)
 
 
-        """
+    """
 
-        path=settings["pretrain_smiles_path"]
-        num_learning_molecules=settings["num_learning_molecules"]
-        descriptor_path=settings["descriptor_path"]
-        smiles_path=settings["smiles_path"]
+    path = settings["pretrain_smiles_path"]
+    num_learning_molecules = settings["num_learning_molecules"]
+    descriptor_path = settings["descriptor_path"]
+    smiles_path = settings["smiles_path"]
 
-        #read smiles list
-        smiles_list=list(pd.read_csv(path)["SMILES"].values)
+    # read smiles list
+    smiles_list = list(pd.read_csv(path)["SMILES"].values)
 
-        if num_learning_molecules==-1:
-            num_learning_molecules=len(smiles_list)
+    if num_learning_molecules == -1:
+        num_learning_molecules = len(smiles_list)
 
-        #select random ones
-        smiles_list=random.sample(smiles_list,num_learning_molecules)
+    # select random ones
+    smiles_list = random.sample(smiles_list, num_learning_molecules)
 
+    #########
+    # calc descriptors
 
-        #########
-        #calc descriptors
+    # init descriptor module
+    desc_calcualtor = MordredDescriptor()
+    desc_calcualtor.dict_mode = False
 
-        #init descriptor module
-        desc_calcualtor=MordredDescriptor()
-        desc_calcualtor.dict_mode=False
+    # calcilaion. it takes time
+    descriptor_list = [desc_calcualtor.calc(sm) for sm in tqdm(smiles_list)]
 
-        #calcilaion. it takes time
-        descriptor_list=[desc_calcualtor.calc(sm) for sm in tqdm(smiles_list)]
+    # scaling
+    scaler = StandardScaler()
+    descriptor_array = scaler.fit_transform(np.array(descriptor_list))
 
-
-        #scaling
-        scaler=StandardScaler()
-        descriptor_array=scaler.fit_transform(np.array(descriptor_list))
-
-        #save
-        joblib.dump(descriptor_array,descriptor_path,compress=9)
-        joblib.dump(smiles_list,smiles_path,compress=9)
+    # save
+    joblib.dump(descriptor_array, descriptor_path, compress=9)
+    joblib.dump(smiles_list, smiles_path, compress=9)

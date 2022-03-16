@@ -16,17 +16,17 @@ class Fingerprint:
 
     def fingerprint(self, mol):
         return GetAvalonFP(mol, nBits=512)
-        #return AllChem.GetMorganFingerprintAsBitVect(mol, 2, 2048)
+        # return AllChem.GetMorganFingerprintAsBitVect(mol, 2, 2048)
 
     def SMILES_to_bit(self, SMILES):
         """
         calculate bit for smiles
-        
+
         Parameters
         ---------------
         SEMILES: string
             smiles
-        
+
         Returns
         -------------
         bit: list of bit
@@ -51,7 +51,7 @@ class Fingerprint:
         ---------------
         SEMILES_list: list of string
             smiles list
-        
+
         Returns
         -------------
         fingerprint_list: list of (list of bit)
@@ -82,7 +82,7 @@ def get_Tanimoto(fp1, fp2):
         fingerprint 1
     fp2: bit array
         fingerprint 2
-    
+
     Returns
     ---------------
     return: float

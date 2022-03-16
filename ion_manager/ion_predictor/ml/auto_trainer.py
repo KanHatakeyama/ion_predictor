@@ -12,35 +12,38 @@ import matplotlib.pyplot as plt
 import yaml
 
 from .data_converter import mol2dgl_single
-from .normalGNN import collate,Regressor,ATOM_FDIM
+from .normalGNN import collate, Regressor, ATOM_FDIM
 
 
 def load_trained_model(settings):
 
-    #load model
-    model = Regressor(ATOM_FDIM,256,32, int(settings["pretrain_y_dim"]))
-    model.load_state_dict(torch.load(settings["model_path"], map_location=torch.device('cpu')))
+    # load model
+    model = Regressor(ATOM_FDIM, 256, 32, int(settings["pretrain_y_dim"]))
+    model.load_state_dict(torch.load(
+        settings["model_path"], map_location=torch.device('cpu')))
     model.eval()
-    model.hidden_mode=True
+    model.hidden_mode = True
 
     return model
 
+
 def auto_prepare_model(settings):
 
-    model_path=settings["model_path"]
+    model_path = settings["model_path"]
 
-    train_graphs, test_graphs, train_y, test_y=prepare_dataset(settings)
-    model = Regressor(ATOM_FDIM,256,32, settings["pretrain_y_dim"])
+    train_graphs, test_graphs, train_y, test_y = prepare_dataset(settings)
+    model = Regressor(ATOM_FDIM, 256, 32, settings["pretrain_y_dim"])
 
-    model,epoch_losses=train_gnn_model(train_graphs,
-                        train_y,
-                        model,
-                        settings
-    )
+    model, epoch_losses = train_gnn_model(train_graphs,
+                                          train_y,
+                                          model,
+                                          settings
+                                          )
 
-    #save
+    # save
     torch.save(model.to('cpu').state_dict(), model_path)
     plt.plot(epoch_losses, c='b')
+
 
 def prepare_dataset(settings):
     """
@@ -50,10 +53,10 @@ def prepare_dataset(settings):
     ----------
     smiles_path: str
         path of SMILES data used for pretraining (str list)
-        
+
     descriptor_path: str
         path of descriptor data (np array)
-    
+
     test_size: float
         test size (use train_test_split func of sklearn)
 
@@ -67,53 +70,52 @@ def prepare_dataset(settings):
 
     """
 
-    descriptor_path=settings["descriptor_path"]
-    smiles_path=settings["smiles_path"]
-    test_size=settings["pretrain_test_size"]
-    random_state=settings["random_state"]
+    descriptor_path = settings["descriptor_path"]
+    smiles_path = settings["smiles_path"]
+    test_size = settings["pretrain_test_size"]
+    random_state = settings["random_state"]
 
-    
-    #X (DGL graph data)
-    smiles_list=joblib.load(smiles_path)
-    mols=[Chem.MolFromSmiles(smiles) for smiles in smiles_list]
-    graphs= mol2dgl_single(mols)
+    # X (DGL graph data)
+    smiles_list = joblib.load(smiles_path)
+    mols = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
+    graphs = mol2dgl_single(mols)
 
-    #y (molecular descriptor)
-    desc_array=joblib.load(descriptor_path)
-    desc_array=desc_array.astype("float32")
+    # y (molecular descriptor)
+    desc_array = joblib.load(descriptor_path)
+    desc_array = desc_array.astype("float32")
 
-    #split
-    train_graphs, test_graphs, train_y, test_y= train_test_split(
-    graphs, desc_array, test_size=test_size, random_state=random_state)
+    # split
+    train_graphs, test_graphs, train_y, test_y = train_test_split(
+        graphs, desc_array, test_size=test_size, random_state=random_state)
 
     return train_graphs, test_graphs, train_y, test_y
 
 
-
 def train_gnn_model(train_graphs,
-                     train_y,
-                     model,
-                     settings,
-                     loss_func = nn.MSELoss(),
-           ):
+                    train_y,
+                    model,
+                    settings,
+                    loss_func=nn.MSELoss(),
+                    ):
 
-    model_path =settings["model_path"]
+    model_path = settings["model_path"]
 
-    #prepare dataloader
+    # prepare dataloader
     dataset = list(zip(train_graphs, train_y))
-    data_loader = DataLoader(dataset, batch_size=settings["batch_size"], shuffle=True, collate_fn=collate)
+    data_loader = DataLoader(
+        dataset, batch_size=settings["batch_size"], shuffle=True, collate_fn=collate)
 
-    #prepare regressor
+    # prepare regressor
     optimizer = optim.Adam(model.parameters(), lr=settings["lr"])
     model.train()
 
-    #train epochs
+    # train epochs
     epoch_losses = []
     for epoch in tqdm(range(settings["epochs"])):
         epoch_loss = 0
         for i, (bg, label) in enumerate(data_loader):
             bg.set_e_initializer(dgl.init.zero_initializer)
-            bg.set_n_initializer(dgl.init.zero_initializer)        
+            bg.set_n_initializer(dgl.init.zero_initializer)
             pred = model(bg)
             loss = loss_func(pred, label)
             optimizer.zero_grad()
@@ -125,7 +127,7 @@ def train_gnn_model(train_graphs,
             print('Epoch {}, loss {:.4f}'.format(epoch+1, epoch_loss))
         epoch_losses.append(epoch_loss)
 
-    return model,epoch_losses
+    return model, epoch_losses
 
 
 """

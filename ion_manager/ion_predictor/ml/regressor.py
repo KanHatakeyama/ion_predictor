@@ -1,8 +1,8 @@
-#model definition
+# model definition
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder,StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import make_pipeline
 
@@ -22,7 +22,7 @@ categorical_preprocessor = Pipeline(
 )
 
 
-def initiate_regressor(number_cols,category_cols):
+def initiate_regressor(number_cols, category_cols):
     pipeline = make_pipeline(
         ColumnTransformer(
             [
@@ -31,7 +31,7 @@ def initiate_regressor(number_cols,category_cols):
             ]
         ),
 
-        RandomForestRegressor( n_jobs = -1,max_depth=20)
+        RandomForestRegressor(n_jobs=-1, max_depth=20)
     )
 
     return pipeline

@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from .ion_predictor.django_wrapper import auto_predictor
 
 
-def df_to_csv(df,filename="users.csv"):
+def df_to_csv(df, filename="users.csv"):
     response = HttpResponse(content_type='text/csv; charset=utf8')
     response['Content-Disposition'] = f'attachment; filename={filename}'
     df.to_csv(path_or_buf=response, encoding='utf_8_sig', index=None)
@@ -18,20 +18,20 @@ def df_to_csv(df,filename="users.csv"):
 # class ChemicalAdmin(NestedModelAdmin):
 class ChemicalAdmin(ImportExportModelAdmin):
 
-    list_display = ["title", 
-                      "subtitle", "smiles_thumbnail",
-                    "created_at", "updated_at",
+    list_display = ["title",
                     "tag_names",
-                   ]
-    list_filter = ["tags__name",  
+                    "subtitle", "smiles_thumbnail",
+                    "created_at", "updated_at",
+                    ]
+    list_filter = ["tags__name",
                    "created_at", "updated_at"]
     search_fields = ['title', "subtitle", "SMILES"]
 
-    readonly_fields = ('smiles_preview',"smiles_info",)
-    ordering = ["title"]
+    readonly_fields = ('smiles_preview', "smiles_info",)
+    ordering = ["-updated_at", "pk"]
     save_as = True
 
-    actions = ["dump"]   
+    actions = ["dump"]
 
     # show tags
     def tag_names(self, obj):
@@ -59,62 +59,60 @@ class ChemicalAdmin(ImportExportModelAdmin):
     smiles_info.short_description = 'smiles_info'
     smiles_info.allow_tags = True
 
-    def dump(self,request,queryset):
-        df=read_frame(queryset.all())
-        df=auto_predictor.pre_convert_compound(df)
-        return df_to_csv(df,filename="compounds.csv")
-    dump.short_description = 'dump for ML'  
+    def dump(self, request, queryset):
+        df = read_frame(queryset.all())
+        df = auto_predictor.pre_convert_compound(df)
+        return df_to_csv(df, filename="compounds.csv")
+    dump.short_description = 'dump for ML'
+
 
 class CompositeAdmin(ImportExportModelAdmin):
 
     list_display = ["title",
-                    # "unique_name",
-                    #  "subtitle", 
-                        "temperature",
-                        "conductivity",
-                        #"log_sigma",
-
-                        "component1",
-                        "component2",
-                        "component3",
-                        "mol_ratio",
-                        "wt_ratio",
-                    "created_at", "updated_at",
                     "tag_names",
-                   ]
-    list_filter = ["tags__name",  
-                        ("temperature",RangeNumericFilter),
-                        ("conductivity",RangeNumericFilter),
+                    "temperature",
+                    "conductivity",
+                    "component1",
+                    "component2",
+                    "component3",
+                    "mol_ratio",
+                    "wt_ratio",
+                    "created_at", "updated_at",
+                    ]
+    list_filter = ["tags__name",
+                   ("temperature", RangeNumericFilter),
+                   ("conductivity", RangeNumericFilter),
                    "created_at", "updated_at"]
     search_fields = ['title', "subtitle"]
 
-    ordering = ["title"]
+    ordering = ["-updated_at", "pk"]
     save_as = True
 
     # show tags
     def tag_names(self, obj):
         return "\n".join([p.name for p in obj.tags.all()])
 
-    actions = ['predict_conductivity',"dump"]   
+    actions = ['predict_conductivity', "dump"]
 
-    def predict_conductivity(self, request, queryset):  
+    def predict_conductivity(self, request, queryset):
 
-        composite_df=read_frame(queryset.all())
-        compound_df=read_frame(models.Chemical.objects.all())
-        predicted_df=auto_predictor.predict(composite_df,compound_df)
+        composite_df = read_frame(queryset.all())
+        compound_df = read_frame(models.Chemical.objects.all())
+        predicted_df = auto_predictor.predict(composite_df, compound_df)
 
-        #return csv
-        return df_to_csv(predicted_df,filename="prediction.csv")
+        # return csv
+        return df_to_csv(predicted_df, filename="prediction.csv")
 
-    predict_conductivity.short_description = 'predict conductivity'  
+    predict_conductivity.short_description = 'predict conductivity'
 
-    def dump(self,request,queryset):
-        composite_df=read_frame(queryset.all())
-        composite_df=auto_predictor.pre_convert_composite(composite_df)
-        return df_to_csv(composite_df,filename="composite.csv")
-    dump.short_description = 'dump for ML'  
+    def dump(self, request, queryset):
+        composite_df = read_frame(queryset.all())
+        composite_df = auto_predictor.pre_convert_composite(composite_df)
+        return df_to_csv(composite_df, filename="composite.csv")
+    dump.short_description = 'dump for ML'
 
-#add
+
+# add
 admin.site.register(models.Chemical, ChemicalAdmin)
 admin.site.register(models.Composite, CompositeAdmin)
 admin.site.register(models.Tag)

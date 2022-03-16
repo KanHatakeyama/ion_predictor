@@ -1,7 +1,7 @@
 #database path
 #excel_path: "database/20200630LiPolymerDB.xlsx"
-excel_path: "database/20220315LiPolymerDB.xlsx"
-bin_database_path: "cache/database.bin"
+#excel_path: "database/20220315LiPolymerDB.xlsx"
+#bin_database_path: "cache/database.bin"
 
 #if true, initialize neural descriptors whenever init the neural desc class (use this when a model is changed)
 init_neural_descriptors: True
