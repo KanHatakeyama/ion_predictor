@@ -15,7 +15,7 @@ with open(setting_path) as file:
 
 
 
-def pre_convert(composite_df,compound_df):
+def pre_convert_composite(composite_df):
     # convert original django-type df into standard format
 
     # prepare "composition" column (e.g., s1/s2/s4)
@@ -30,9 +30,6 @@ def pre_convert(composite_df,compound_df):
 
     composite_df["composition"]=composition_data
 
-    #rename columns
-    compound_df=compound_df.rename(columns={'title': 'ID'})
-
 
     composite_df=composite_df.rename(columns={
                                 "title":"ID",
@@ -41,17 +38,34 @@ def pre_convert(composite_df,compound_df):
                                 "conductivity":"Conductivity"
                                 })
 
-    compound_df=compound_df.replace([None], [np.nan])
     composite_df=composite_df.replace([None], [np.nan])
+    return composite_df
 
-    return composite_df,compound_df
+def pre_convert_compound(compound_df):
+    # convert original django-type df into standard format
+
+    #rename columns
+    compound_df=compound_df.rename(columns={'title': 'ID'})
+    compound_df=compound_df.replace([None], [np.nan])
+
+    return compound_df
+
+def compensate_columns(test_X,X_columns):
+    lacking_columns=set(X_columns)-set(test_X.columns)
+    for c in lacking_columns:
+        test_X[c]=np.nan
+    test_X=test_X.sort_index(axis=1, ascending=False)
+    test_X=test_X[X_columns]
+
+    return test_X
 
 
 
 #predict conductivity from dataframe parsed from django admin
 def predict(composite_df,compound_df):
 
-    composite_df,compound_df=pre_convert(composite_df,compound_df)
+    composite_df=pre_convert_composite(composite_df)
+    compound_df=pre_convert_compound(compound_df)
 
     #load regressor
     model,X_columns=joblib.load(settings["regressor_path"])
@@ -63,11 +77,7 @@ def predict(composite_df,compound_df):
     test_X=test_df.drop([y_label,"ID"],axis=1)
 
     #add lacking columns
-    lacking_columns=set(X_columns)-set(test_X.columns)
-    for c in lacking_columns:
-        test_X[c]=np.nan
-    test_X=test_X.sort_index(axis=1, ascending=False)
-
+    test_X=compensate_columns(test_X,X_columns)
 
     pred_y=model.predict(test_X)
     test_df["predict"]=pred_y

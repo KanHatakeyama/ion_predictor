@@ -8,7 +8,7 @@ init_neural_descriptors: True
 
 #pretraining settings
 pretrain_smiles_path: database/polymer_smiles.csv.gz      # path to smiles csv data for pretrain
-num_learning_molecules: 100                               # num of molecules for pretrain
+num_learning_molecules: 300                               # num of molecules for pretrain
 descriptor_path: cache/descriptors.bin                 # path of dumped molecular desciptors for pretrain
 smiles_path: cache/smiles.bin                          # path of smiles list used for pretrain
 pretrain_y_dim: 1613                                           # dim of y for pretrain
