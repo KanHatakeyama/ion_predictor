@@ -14,7 +14,8 @@ pip3 install openpyxl==3.0.5
 
 pip3 install Django==3.2.12
 pip3 install django-pandas==0.6.2
-
+pip3 install django-ckeditor
+pip3 install django-import-export
 
 access
 http://127.0.0.1:8000/manager/upload
