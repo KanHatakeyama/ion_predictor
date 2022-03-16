@@ -108,7 +108,7 @@ class Composite(models.Model):
     wt_ratio= models.CharField(max_length=400, null=True, blank=True)
 
     melting_temp=models.CharField(max_length=400, null=True, blank=True)
-    ionorg_name=models.CharField(max_length=400, null=True, blank=True)
+    inorg_name=models.CharField(max_length=400, null=True, blank=True)
     inorg_contain_ratio=models.FloatField(max_length=400, null=True, blank=True)
     crystallinity=models.FloatField(max_length=400, null=True, blank=True)
     Tg=models.FloatField(max_length=400, null=True, blank=True)

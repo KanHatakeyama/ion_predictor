@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import UploadFileForm
-from django.http import HttpResponse
 import sys
 from django.http import HttpResponseRedirect
 from .ion_predictor.django_wrapper.auto_predictor import screen_predict

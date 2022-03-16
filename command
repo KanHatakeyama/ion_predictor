@@ -13,7 +13,7 @@ pip3 install mordred==1.2.0
 pip3 install openpyxl==3.0.5
 
 pip3 install Django==3.2.12
-pip3 install django-pandas==0.6.2
+pip3 install django-pandas==0.6.6
 pip3 install django-ckeditor
 pip3 install django-import-export
 pip3 install django-admin-numeric-filter

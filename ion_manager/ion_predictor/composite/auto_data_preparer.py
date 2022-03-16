@@ -26,7 +26,9 @@ def clean_df(original_df):
 
 def load_ion_excel(settings,
                     compound_sheet_name="CompoundDatabase",
-                    composite_sheet_name="Database"):
+                    composite_sheet_name="Database",
+                    compound_df=None,
+                    composite_df=None):
 
     compound_load_list = ['ID',  'SMILES', 'mol_ratio', 'wt_ratio', 'Mw',
                         'Mn', 'MwMn', 'Polymn_deg', 'Structure']
@@ -36,11 +38,15 @@ def load_ion_excel(settings,
 
 
     excel_path=settings["excel_path"]
-    compound_df = pd.read_excel(
-            excel_path, sheet_name=compound_sheet_name)[compound_load_list]
 
-    composite_df = pd.read_excel(excel_path, sheet_name=composite_sheet_name)[
-        composite_load_list]
+    if compound_df is None:
+        compound_df = pd.read_excel(excel_path, sheet_name=compound_sheet_name)
+            
+    if composite_df is None:
+        composite_df = pd.read_excel(excel_path, sheet_name=composite_sheet_name)
+
+    compound_df=compound_df[compound_load_list]
+    composite_df=composite_df[composite_load_list]
 
     return auto_df_load(compound_df,composite_df,settings)
 

@@ -1,8 +1,10 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from . import models
-from django.forms import Textarea
-from admin_numeric_filter.admin import NumericFilterModelAdmin, SingleNumericFilter, RangeNumericFilter,SliderNumericFilter
+from admin_numeric_filter.admin import RangeNumericFilter
+from django_pandas.io import read_frame
+from django.http import HttpResponse
+from .ion_predictor.django_wrapper import auto_predictor
 
 # Register your models here.
 # class ChemicalAdmin(NestedModelAdmin):
@@ -86,6 +88,21 @@ class CompositeAdmin(ImportExportModelAdmin):
     def tag_names(self, obj):
         return "\n".join([p.name for p in obj.tags.all()])
 
+    actions = ['predict_conductivity']   
+
+    def predict_conductivity(self, request, queryset):  
+
+        composite_df=read_frame(queryset.all())
+        compound_df=read_frame(models.Chemical.objects.all())
+        predicted_df=auto_predictor.predict(composite_df,compound_df)
+
+        #return csv
+        response = HttpResponse(content_type='text/csv; charset=utf8')
+        response['Content-Disposition'] = 'attachment; filename=users.csv'
+        predicted_df.to_csv(path_or_buf=response, encoding='utf_8_sig', index=None)
+        return response 
+
+    predict_conductivity.short_description = 'predict conductivity'  
 
 #add
 admin.site.register(models.Chemical, ChemicalAdmin)
