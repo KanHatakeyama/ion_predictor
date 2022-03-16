@@ -79,3 +79,53 @@ class Chemical(models.Model):
     @property
     def unique_name(self):
         return str(self.pk)+"_"+str(self.title)
+
+
+
+# composite 
+class Composite(models.Model):
+    title = models.CharField(max_length=200,unique=True)
+    subtitle = models.CharField(max_length=200, null=True, blank=True)
+    tags = models.ManyToManyField(Tag, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    obtained_date = models.DateField(null=True, blank=True)
+
+
+    temperature=models.FloatField(max_length=400)
+    conductivity=models.FloatField(max_length=400)
+
+    component1 = models.ForeignKey(Chemical,models.SET_NULL,blank=True,null=True,related_name="chem_component1")
+    component2 = models.ForeignKey(Chemical,models.SET_NULL,blank=True,null=True,related_name="chem_component2")
+    component3 = models.ForeignKey(Chemical,models.SET_NULL,blank=True,null=True,related_name="chem_component3")
+    component4 = models.ForeignKey(Chemical,models.SET_NULL,blank=True,null=True,related_name="chem_component4")
+    component5 = models.ForeignKey(Chemical,models.SET_NULL,blank=True,null=True,related_name="chem_component5")
+    component6 = models.ForeignKey(Chemical,models.SET_NULL,blank=True,null=True,related_name="chem_component6")
+
+
+    mol_ratio= models.CharField(max_length=400, null=True, blank=True)
+    wt_ratio= models.CharField(max_length=400, null=True, blank=True)
+
+    melting_temp=models.CharField(max_length=400, null=True, blank=True)
+    ionorg_name=models.CharField(max_length=400, null=True, blank=True)
+    inorg_contain_ratio=models.FloatField(max_length=400, null=True, blank=True)
+    crystallinity=models.FloatField(max_length=400, null=True, blank=True)
+    Tg=models.FloatField(max_length=400, null=True, blank=True)
+    mp=models.FloatField(max_length=400, null=True, blank=True)
+
+
+
+    reference = models.CharField(max_length=400, null=True, blank=True)
+    special_memo = models.TextField(max_length=4000,blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Composite"
+
+    def __str__(self) -> str:
+        return self.title
+
+
+    @property
+    def unique_name(self):
+        return str(self.pk)+"_"+str(self.title)
+

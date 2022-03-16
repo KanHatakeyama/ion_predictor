@@ -2,6 +2,7 @@ from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from . import models
 from django.forms import Textarea
+from admin_numeric_filter.admin import NumericFilterModelAdmin, SingleNumericFilter, RangeNumericFilter,SliderNumericFilter
 
 # Register your models here.
 # class ChemicalAdmin(NestedModelAdmin):
@@ -53,6 +54,29 @@ class ChemicalAdmin(ImportExportModelAdmin):
     smiles_info.allow_tags = True
 
 
+class CompositeAdmin(ImportExportModelAdmin):
+
+    list_display = ["title", "unique_name", "subtitle", 
+                        "temperature","conductivity",
+                        "component1",
+                    "created_at", "updated_at",
+                    "tag_names",
+                   ]
+    list_filter = ["tags__name",  
+                        ("temperature",RangeNumericFilter),
+                        ("conductivity",RangeNumericFilter),
+                   "created_at", "updated_at"]
+    search_fields = ['title', "subtitle"]
+
+    ordering = ["title"]
+    save_as = True
+
+    # show tags
+    def tag_names(self, obj):
+        return "\n".join([p.name for p in obj.tags.all()])
+
+
 #add
 admin.site.register(models.Chemical, ChemicalAdmin)
+admin.site.register(models.Composite, CompositeAdmin)
 admin.site.register(models.Tag)
