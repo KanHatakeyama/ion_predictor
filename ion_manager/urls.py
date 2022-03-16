@@ -5,5 +5,4 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('upload', views.file_upload, name='file_upload'),
-    path('predict', views.predict, name='predict'),
 ]

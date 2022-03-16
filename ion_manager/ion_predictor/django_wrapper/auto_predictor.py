@@ -15,8 +15,7 @@ with open(setting_path) as file:
 
 y_label=settings["y_label"]
 
-def screen_predict(name):
-    path="media/documents/"+name
+def screen_predict(path):
 
     model,X_columns=joblib.load(settings["regressor_path"])
 
