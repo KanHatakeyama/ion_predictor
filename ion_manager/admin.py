@@ -10,8 +10,8 @@ class ChemicalAdmin(ImportExportModelAdmin):
     list_display = ["title", "unique_name", "subtitle", "smiles_thumbnail",
                     "created_at", "updated_at",
                     "tag_names",
-                   "made_by", ]
-    list_filter = ["tags__name",   "made_by",
+                   ]
+    list_filter = ["tags__name",  
                    "created_at", "updated_at"]
     search_fields = ['title', "subtitle", "SMILES"]
 
