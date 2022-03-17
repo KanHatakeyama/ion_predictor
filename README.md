@@ -32,7 +32,10 @@
 
 ### On your server 
 1. Clone this repositry
-    - 
+    1. For instance,
+        - ```gh repo clone KanHatakeyama/ion_predictor```
+    2. Unzip database
+        - ```7z x db.7z```
 2. Setup Python environment according to "requirements.txt"
     - Or, manually run the commands [here](misc/conda_command) 
 3. Run server
@@ -46,6 +49,10 @@
 
 ### On [Heroku](https://heroku.com/) (via docker)
 1. Clone this repositry
+    1. For instance,
+        - ```gh repo clone KanHatakeyama/ion_predictor```
+    2. Unzip database
+        - ```7z x db.7z```
 2. Login heroku via CLI
     - ```heroku login --interactive ```
 3. Run the following commands
@@ -57,6 +64,10 @@
 
 ### Docker (not checked)
 1. Clone this repositry
+    1. For instance,
+        - ```gh repo clone KanHatakeyama/ion_predictor```
+    2. Unzip database
+        - ```7z x db.7z```
 2. Build image
     - ```docker build -t ion .```
 3. Run (e.g., @ PORT=8000)
