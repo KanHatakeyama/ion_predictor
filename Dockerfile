@@ -1,9 +1,9 @@
 FROM continuumio/miniconda3
 
-#RUN conda create -n chemodel python==3.7.9
+RUN conda create -n chemodel python==3.7.9
 
 #for heroku compatible server
-RUN conda create -n chemodel python==3.7.13
+#RUN conda create -n chemodel python==3.7.13
 
 SHELL ["conda", "run", "-n", "chemodel", "/bin/bash", "-c"]
 
