@@ -133,3 +133,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "image_upload")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# import local settings (secret key, etc)
+#"""
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+#"""
+

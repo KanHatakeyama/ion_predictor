@@ -125,3 +125,6 @@ media/*
 
 my_memos/*
 my_memos
+
+
+local_settings.py
