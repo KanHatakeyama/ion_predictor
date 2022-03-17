@@ -5,7 +5,19 @@
 - Related paper
     - https://pubs.acs.org/doi/10.1021/jacs.9b11442
     - Database and models are slightly different from the original paper
-        - mainly because of copyright and available module version issues
+        - i.e., copyright and available module version issues
+
+
+# How to use?
+## [DEMO server](https://ionpred.herokuapp.com/admin/) is available!
+-  Just wait for ca. 30 seconds to load the page
+- Login info
+    - username: user
+    - pass: user
+- Database will reset every day
+- Response is slow because it runs on a free server
+
+
 # Overview
 ## Chemical database
 ![about](misc/chems.PNG)
@@ -18,15 +30,6 @@
 ## where is the database?
 - [csv files](database) are available!
 - SQL database is used in the server
-
-# How to use?
-- [DEMO server](https://ionpred.herokuapp.com/admin/) is available! (just wait for ca. 30 seconds to load the page)
-    - IMPORTANT NOTES about the server
-        - Login info
-            - username: user
-            - pass: user
-        - Database will reset every day
-        - Response is slow because it runs on a free server
 
 
 # Installization
