@@ -12,6 +12,8 @@
 ## Electrolyte database
 ![about](misc/pred.PNG)
 ## Predicted data
+- Exported as a csv file
+- Log10 (conductivity) is predicted
 ![about](misc/csv.PNG)
 
 
