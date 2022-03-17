@@ -6,6 +6,14 @@
     - https://pubs.acs.org/doi/10.1021/jacs.9b11442
     - Database and models are slightly different from the original paper
         - mainly because of copyright and available module version issues
+# Overview
+## Chemical database
+![about](misc/chems.PNG)
+## Electrolyte database
+![about](misc/pred.PNG)
+## Predicted data
+![about](misc/csv.PNG)
+
 
 # How to use?
 - [DEMO server](https://ionpred.herokuapp.com/admin/) is available! (just wait for ca. 30 seconds to load the page)
@@ -24,6 +32,7 @@
 
 ### On your server 
 1. Clone this repositry
+    - 
 2. Setup Python environment according to "requirements.txt"
     - Or, manually run the commands [here](misc/conda_command) 
 3. Run server
@@ -38,6 +47,7 @@
 ### On [Heroku](https://heroku.com/) (via docker)
 1. Clone this repositry
 2. Login heroku via CLI
+    - ```heroku login --interactive ```
 3. Run the following commands
     - ```heroku create [your heroku project name]```
     - ```heroku container:login```
@@ -52,8 +62,25 @@
 3. Run (e.g., @ PORT=8000)
     - ```docker run -e PORT=8000 ion```
 
+
+# Quick use
+## GUI
+- Run server
+- Access URL
+    - e.g., http://127.0.0.1:8000/
+- Edit chemical and electrolyte data
+    - You can import and export data as e.g., xlsx and csv
+![about](misc/chem_page.PNG)
+
+## Jupyter
+- Launch [notebook](prepare_model.ipynb)
+- You can tune neural descriptors, etc
+
 # Version
 - 2022.3.17 First prototype
+
+# TODO
+- Prepare manual
 
 # Author
 - Kan Hatakeyama-Sato
