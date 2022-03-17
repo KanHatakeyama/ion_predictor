@@ -3,7 +3,6 @@
 import os
 import sys
 
-print("run server")
 
 def main():
     """Run administrative tasks."""
@@ -20,4 +19,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print("begin")
     main()

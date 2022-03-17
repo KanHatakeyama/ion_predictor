@@ -26,15 +26,15 @@ RUN pip3 install django-admin-numeric-filter==0.1.6
 RUN pip3 install gunicorn
 RUN pip3 install --no-deps django-heroku
 
-
-#this should be after django-heroku
 RUN pip3 install Django==3.2.12
 
 RUN mkdir /code
 WORKDIR /code
 ADD . /code
 
-RUN pip3 list
+#RUN pip3 list
 
-CMD python manage.py runserver
-#CMD gunicorn --bind 0.0.0.0:$PORT config.wsgi
+#CMD python manage.py runserver
+CMD gunicorn --bind 0.0.0.0:$PORT config.wsgi
+#CMD gunicorn config.wsgi
+#CMD python3 manage.py 
