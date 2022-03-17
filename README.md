@@ -15,7 +15,9 @@
 - Exported as a csv file
 - Log10 (conductivity) is predicted
 ![about](misc/csv.PNG)
-
+## where is the database?
+- [csv files](database) are available!
+- SQL database is used in the server
 
 # How to use?
 - [DEMO server](https://ionpred.herokuapp.com/admin/) is available! (just wait for ca. 30 seconds to load the page)
