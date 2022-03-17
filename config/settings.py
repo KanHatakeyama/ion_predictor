@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #"ckeditor",
-    #"ckeditor_uploader",
     "admin_numeric_filter", 
     'import_export',
     "ion_manager",
@@ -128,16 +126,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, "static"),
-#)
-
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "image_upload")
 
-#CKEDITOR_UPLOAD_PATH = 'uploads/'
-#CKEDITOR_IMAGE_BACKEND = "pillow"
-#CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
