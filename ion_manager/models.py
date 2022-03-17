@@ -82,6 +82,17 @@ class Chemical(models.Model):
     def unique_name(self):
         return str(self.pk)+"_"+str(self.title)
 
+    def next(self):
+        try:
+            return Chemical.objects.get(pk=self.pk+1)
+        except:
+            return None
+
+    def previous(self):
+        try:
+            return Chemical.objects.get(pk=self.pk-1)
+        except:
+            return None
 
 # composite
 class Composite(models.Model):
@@ -139,3 +150,15 @@ class Composite(models.Model):
     @property
     def log_sigma(self):
         return round(np.log10(self.conductivity), 2)
+
+    def next(self):
+        try:
+            return Composite.objects.get(pk=self.pk+1)
+        except:
+            return None
+
+    def previous(self):
+        try:
+            return Composite.objects.get(pk=self.pk-1)
+        except:
+            return None

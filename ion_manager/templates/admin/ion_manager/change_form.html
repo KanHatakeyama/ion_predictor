@@ -1,0 +1,15 @@
+{% extends "admin/change_form.html" %}
+{% block object-tools %}
+<ul class="object-tools">
+  {% if change %}{% if not is_popup %}
+  {% if original.previous %}
+    <li><a href="../../{{original.previous.id }}/change/" class="historylink">« {{original.previous}}</a></li>
+  {% endif %}
+
+  {% if original.next %}
+  <li><a href="../../{{original.next.id }}/change/" class="historylink"> {{original.next}} »</a></li>
+  {% endif %}
+  {% endif %}{% endif %}
+</ul>
+
+{% endblock %}
