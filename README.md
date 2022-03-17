@@ -23,8 +23,8 @@
 ![about](misc/chems.PNG)
 ## Electrolyte database
 ![about](misc/pred.PNG)
-## Predicted data
-- Exported as a csv file
+## Predicted conductivity
+- It can export the prediction data as a csv file
 - Log10 (conductivity) is predicted
 ![about](misc/csv.PNG)
 ## where is the database?
