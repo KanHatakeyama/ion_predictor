@@ -12,13 +12,7 @@ memory = Memory("cache", verbose=0, mmap_mode='r')
 class NeuralDescriptor:
     def __init__(self, settings):
         self.model = load_trained_model(settings)
-        # self.desc_path=settings["neural_desc_path"]
-
         self.desc_dict = {}
-        # if not os.path.exists(self.desc_path) or settings["init_neural_descriptors"]:
-        #    self.desc_dict={}
-        # else:
-        #    self.desc_dict=joblib.load(self.desc_path)
         self.calc_fingerprint = self.calc_descriptors
 
     def __call__(self, smiles):
@@ -30,7 +24,6 @@ class NeuralDescriptor:
 
         desc = self.predict(smiles)
         self.desc_dict[smiles] = desc
-        # joblib.dump(self.desc_dict,self.desc_path)
 
         return desc
 
@@ -72,6 +65,9 @@ class NeuralDescriptor:
 
 @memory.cache
 def cache_predict(smiles, model):
+    """
+    use cache data for the same smiles
+    """
     mol = Chem.MolFromSmiles(smiles)
     graphs = mol2dgl_single([mol])
     test_bg = dgl.batch(graphs)
