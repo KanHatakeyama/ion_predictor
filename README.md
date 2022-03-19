@@ -97,8 +97,12 @@
 # Version
 - 2022.3.17 First prototype
 
-# TODO
+# TODO & issues
 - Prepare manual
+- Error occurs during exporting/importing large records (e.g., dump all composite data)
+    - this seems to be induced by a timeout error of wsgi
+    - launched server by django should not cause the error
+        - ```python manage.py runserver```
 
 # Author
 - Kan Hatakeyama-Sato
