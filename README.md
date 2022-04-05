@@ -36,6 +36,9 @@
 ## For computer beginners
 - The system works on [Django framework](https://docs.djangoproject.com) of Python
     - Basic knowledge of Python and Django would be needed to run the program
+- However, you can try [VirtualBox](https://www.virtualbox.org/).
+    - [Virtual Box image](https://drive.google.com/drive/folders/1blh2ysu-766BYBRP9J_iByIbmjkD4GW-?usp=sharing) (2022/4/5, ca. 10 GB)
+    - Files were not checked seriously
 
 ### On your server 
 1. Clone this repositry
@@ -79,7 +82,6 @@
     - ```docker build -t ion .```
 3. Run (e.g., @ PORT=8000)
     - ```docker run -e PORT=8000 ion```
-
 
 # Quick use
 ## GUI
