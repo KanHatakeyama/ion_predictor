@@ -112,7 +112,11 @@ class CompositeAdmin(ImportExportModelAdmin):
     dump.short_description = 'dump for ML'
 
 
+class TagAdmin(ImportExportModelAdmin):
+    pass
+
+
 # add
 admin.site.register(models.Chemical, ChemicalAdmin)
 admin.site.register(models.Composite, CompositeAdmin)
-admin.site.register(models.Tag)
+admin.site.register(models.Tag, TagAdmin)

@@ -128,3 +128,5 @@ my_memos
 
 
 local_settings.py
+
+debug
