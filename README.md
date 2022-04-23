@@ -30,9 +30,9 @@
 ![about](manual/media/misc/csv.PNG)
 
 # Version
-- 2022.3.17 First prototype
-- 2022.4.22 Add tag admin
 - 2022.4.23 Update manual
+- 2022.4.22 Add tag admin
+- 2022.3.17 First prototype
 
 # Author
 - Kan Hatakeyama-Sato
