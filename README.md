@@ -21,17 +21,18 @@
 
 # Overview
 ## Chemical database
-![about](misc/chems.PNG)
+![about](manual/media/misc/chems.PNG)
 ## Electrolyte database
-![about](misc/pred.PNG)
+![about](manual/media/misc/pred.PNG)
 ## Predicted conductivity
 - It can export the prediction data as a csv file
 - Log10 (conductivity) is predicted
-![about](misc/csv.PNG)
+![about](manual/media/misc/csv.PNG)
 
 # Version
 - 2022.3.17 First prototype
 - 2022.4.22 Add tag admin
+- 2022.4.23 Update manual
 
 # Author
 - Kan Hatakeyama-Sato

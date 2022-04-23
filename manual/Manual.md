@@ -13,9 +13,12 @@
   - [3.2 Register chemicals](#32-register-chemicals)
   - [3.3 Register composites](#33-register-composites)
   - [3.4 Predict conductivty](#34-predict-conductivty)
-  - [3.5 Import/export data](#35-importexport-data)
-- [(under devlopment)](#under-devlopment)
-- [4. TODO & issues](#4-todo--issues)
+- [4. Import/export data](#4-importexport-data)
+- [5. Machine learning](#5-machine-learning)
+  - [5.1 Dump records](#51-dump-records)
+  - [5.2 Open Jupyter notebook](#52-open-jupyter-notebook)
+  - [5.3 Run all cells](#53-run-all-cells)
+- [6. TODO & issues](#6-todo--issues)
 
 
 
@@ -45,6 +48,8 @@
 5. Launch server
     - ```python manage.py runserver 0.0.0.0:8000```
     - Access website via your browser
+      - e.g. http://192.168.11.2:8000/admin
+        - IP (e.g., 192.168.11.2) changes by your environment
     - You can login the site with
       - Username: user
       - Pass: user
@@ -59,7 +64,7 @@
     2. Unzip database
         - ```7z x db.7z```
 2. Setup Python environment according to "requirements.txt"
-    - Or, manually run the commands [here](../misc/conda_command) 
+    - Or, manually run the commands [here](media/misc/conda_command) 
 3. Run server
     - ```python manage.py runserver 0.0.0.0:8000```
     - Or, by other command, such as 
@@ -182,11 +187,43 @@
           - molecular weight
           - ...
 
-## 3.5 Import/export data
+# 4. Import/export data
+  - You can import/export records on the admin page
+   - ![](media/import.PNG)
+   - Many formats are available
+     - csv
+     - xls,xlsx,
+     - json
+     - ...
+  
+# 5. Machine learning
+  - You can make a new regression model with your original data
 
-# (under devlopment)
+## 5.1 Dump records
+  - Dump chemical and composite database which you want to train
+  - **Do not confuse with the export button in section 4**
+    - Data format is slightly different
 
-# 4. TODO & issues
+   - Composite
+     - ![](media/dump.PNG)
+   - Chemical
+     - ![](media/dump2.PNG)
+
+## 5.2 Open [Jupyter notebook](../prepare_model.ipynb)
+  - Use default jupyter notebook or other tools such as [VS code](https://azure.microsoft.com/en-us/products/visual-studio-code/)
+    - You can launch jupyter server by the following command
+    - ```jupyter-notebook --port 8000 --allow-root --ip 0.0.0.0```
+  - Upload the dumped csv data (in section 5.1) at your favorite directory
+  - Set path to the files in [Jupyter notebook](../prepare_model.ipynb)
+     - ![](media/path.PNG)
+     - composite_path: path to the composite database (dumped in section 5.1)
+     - compound_path path the compound database (dumped in section 5.1)
+
+## 5.3 Run all cells
+  - Done!
+
+
+# 6. TODO & issues
 - Error occurs during exporting/importing large records (e.g., dump all composite data)
     - this seems to be induced by a timeout error of wsgi
     - launching server by django will not cause the error
