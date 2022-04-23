@@ -33,7 +33,7 @@
 
 ## Choive A: On your computer via Docker (recommended)
 0. [Install docker](https://docs.docker.com/get-docker/)
-    - Docker is virtual environment of computing
+    - Docker gives virtual environments for programs
 1. Clone this repositry
     1. For instance,
         - ```gh repo clone KanHatakeyama/ion_predictor```
