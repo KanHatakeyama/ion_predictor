@@ -28,10 +28,6 @@
 - It can export the prediction data as a csv file
 - Log10 (conductivity) is predicted
 ![about](misc/csv.PNG)
-## Where is the database?
-- [csv files](database) are available!
-- SQL database is used in the server
-
 
 # Version
 - 2022.3.17 First prototype
