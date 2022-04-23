@@ -17,7 +17,7 @@
 - [5. Machine learning](#5-machine-learning)
   - [5.1 Dump records](#51-dump-records)
   - [5.2 Open Jupyter notebook](#52-open-jupyter-notebook)
-  - [5.3 Run all cells](#53-run-all-cells)
+  - [5.3 Run the cells](#53-run-the-cells)
 - [6. TODO & issues](#6-todo--issues)
 
 
@@ -219,8 +219,9 @@
      - composite_path: path to the composite database (dumped in section 5.1)
      - compound_path path the compound database (dumped in section 5.1)
 
-## 5.3 Run all cells
-  - Done!
+## 5.3 Run the cells
+  - Trained models will be saved automatically
+  - The newer model will be used to predict conductivity in section 3.4
 
 
 # 6. TODO & issues
