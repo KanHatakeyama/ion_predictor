@@ -72,9 +72,10 @@ class CompositeAdmin(ImportExportModelAdmin):
                     "tag_names",
                     "temperature",
                     "conductivity",
-                    "component1",
-                    "component2",
-                    "component3",
+                    "smiles_thumbnail",
+                    # "component1",
+                    # "component2",
+                    # "component3",
                     "mol_ratio",
                     "wt_ratio",
                     "created_at", "updated_at",
@@ -87,6 +88,8 @@ class CompositeAdmin(ImportExportModelAdmin):
 
     ordering = ["-updated_at", "pk"]
     save_as = True
+
+    readonly_fields = ("smiles_preview", "smiles_thumbnail",)
 
     # show tags
     def tag_names(self, obj):

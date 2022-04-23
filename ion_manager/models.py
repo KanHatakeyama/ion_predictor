@@ -13,9 +13,23 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+# show chemical structures
 
+
+def prepare_image(smiles, size=None):
+    try:
+        if size is None:
+            img = parse_smiles.smiles_to_buffer_img(smiles)
+        else:
+            img = parse_smiles.smiles_to_buffer_img(smiles, size=size)
+        tag = "<img src='data:image/png;base64,{}'/>".format(img)
+    except:
+        tag = "<p>error parsing smiles</p>"
+    return tag
 
 # chemical
+
+
 class Chemical(models.Model):
     title = models.CharField(max_length=200, unique=True)
     subtitle = models.CharField(max_length=200, null=True, blank=True)
@@ -49,19 +63,8 @@ class Chemical(models.Model):
         # this somehow causes error during integrating graphs (utils/experiment_utilities)
         # return str(self.pk)+"_"+str(self.title)
 
-    # show chemical structures
-    def prepare_image(self, smiles, size=None):
-        try:
-            if size is None:
-                img = parse_smiles.smiles_to_buffer_img(smiles)
-            else:
-                img = parse_smiles.smiles_to_buffer_img(smiles, size=size)
-            tag = "<img src='data:image/png;base64,{}'/>".format(img)
-        except:
-            tag = "<p>error parsing smiles</p>"
-        return tag
-
     # polymer data parsing
+
     @property
     def smiles_info(self):
         return parse_smiles.smiles_info(self.SMILES)
@@ -69,13 +72,13 @@ class Chemical(models.Model):
     @property
     def smiles_preview(self):
         if self.SMILES:
-            return mark_safe(self.prepare_image(self.SMILES))
+            return mark_safe(prepare_image(self.SMILES))
         return ""
 
     @property
     def smiles_thumbnail(self):
         if self.SMILES:
-            return mark_safe(self.prepare_image(self.SMILES, size=100))
+            return mark_safe(prepare_image(self.SMILES, size=100))
         return ""
 
     @property
@@ -95,6 +98,8 @@ class Chemical(models.Model):
             return None
 
 # composite
+
+
 class Composite(models.Model):
     title = models.CharField(max_length=200, unique=True)
     subtitle = models.CharField(max_length=200, null=True, blank=True)
@@ -150,6 +155,38 @@ class Composite(models.Model):
     @property
     def log_sigma(self):
         return round(np.log10(self.conductivity), 2)
+
+    def smiles_info(self):
+
+        smiles_list = []
+        component_list = [
+            self.component1,
+            self.component2,
+            self.component3,
+            self.component4,
+            self.component5,
+            self.component6,
+        ]
+        for component in component_list:
+            try:
+                pk = component.id
+                smiles = Chemical.objects.get(id=pk).SMILES
+                smiles_list.append(smiles)
+            except:
+                pass
+
+        # return "s"
+        return ".".join(smiles_list)
+
+    @property
+    def smiles_preview(self):
+        smiles = self.smiles_info()
+        return mark_safe(prepare_image(smiles))
+
+    @property
+    def smiles_thumbnail(self):
+        smiles = self.smiles_info()
+        return mark_safe(prepare_image(smiles, size=200))
 
     def next(self):
         try:
