@@ -2,8 +2,8 @@
 - [TOC](#toc)
 - [1. Installization](#1-installization)
   - [NOTE: For programming beginners](#note-for-programming-beginners)
-  - [Choice A: On your server](#choice-a-on-your-server)
-  - [Choive A': On your server via Docker (not checked)](#choive-a-on-your-server-via-docker-not-checked)
+  - [Choive A: On your computer via Docker (recommended)](#choive-a-on-your-computer-via-docker-recommended)
+  - [Choice A': On your computer (manual install)](#choice-a-on-your-computer-manual-install)
   - [Choice B: On Heroku (remote webserver via docker)](#choice-b-on-heroku-remote-webserver-via-docker)
 - [2. Overview for using the program](#2-overview-for-using-the-program)
   - [GUI](#gui)
@@ -28,24 +28,9 @@
     - Files were not checked very carefully
     - It may not be the newest version
 
-## Choice A: On your server 
-1. Clone this repositry
-    1. For instance,
-        - ```gh repo clone KanHatakeyama/ion_predictor```
-    2. Unzip database
-        - ```7z x db.7z```
-2. Setup Python environment according to "requirements.txt"
-    - Or, manually run the commands [here](../misc/conda_command) 
-3. Run server
-    - ```python manage.py runserver```
-    - Or, by other command, such as 
-        - ```gunicorn -b :8765 config.wsgi```
-4. Access website
-5. You can login the site with
-    - Username: user
-    - Pass: user
-
-## Choive A': On your server via Docker (not checked)
+## Choive A: On your computer via Docker (recommended)
+0. [Install docker](https://docs.docker.com/get-docker/)
+    - Docker is virtual environment of computing
 1. Clone this repositry
     1. For instance,
         - ```gh repo clone KanHatakeyama/ion_predictor```
@@ -54,15 +39,45 @@
 2. Build image
     - ```docker build -t ion .```
 3. Run (e.g., @ PORT=8000)
-    - ```docker run -e PORT=8000 ion```
+    - ```docker run -p 8000:8000 -it ion```
+4. In the docker, activate python environment
+    - ```conda activate chemodel```
+5. Launch server
+    - ```python manage.py runserver 0.0.0.0:8000```
+    - Access website via your browser
+    - You can login the site with
+      - Username: user
+      - Pass: user
+6. Launch jupyter notebook (for machine learning)
+    - ```jupyter-notebook --port 8000 --allow-root --ip 0.0.0.0```
 
 
-## Choice B: On [Heroku](https://heroku.com/) (remote webserver via docker)
+## Choice A': On your computer (manual install)
 1. Clone this repositry
     1. For instance,
         - ```gh repo clone KanHatakeyama/ion_predictor```
     2. Unzip database
         - ```7z x db.7z```
+2. Setup Python environment according to "requirements.txt"
+    - Or, manually run the commands [here](../misc/conda_command) 
+3. Run server
+    - ```python manage.py runserver 0.0.0.0:8000```
+    - Or, by other command, such as 
+        - ```gunicorn -b :8765 config.wsgi```
+4. Access website and jupyter(same as A)
+
+
+## Choice B: On [Heroku](https://heroku.com/) (remote webserver via docker)
+
+1. Clone this repositry
+    1. For instance,
+        - ```gh repo clone KanHatakeyama/ion_predictor```
+    2. Unzip database
+        - ```7z x db.7z```
+    3. Modify [Dockerfile](../Dockerfile)
+    - Remove "comment out (#)" for the following commands (essential for Heroku server)
+        - ```RUN pip3 install --no-deps django-heroku```
+        - ```CMD gunicorn --bind 0.0.0.0:$PORT config.wsgi```
 2. Login heroku via CLI
     - ```heroku login --interactive ```
 3. Run the following commands
