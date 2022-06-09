@@ -43,7 +43,7 @@
     - ```docker build -t ion .```
 3. Initiate and run container (e.g., @ PORT=8000)
     - ```docker run -it --name ion -v $(pwd):/code -p 8000:8000 ion```
-    - INFO: (2nd time~) You can restart the container by ...
+    - INFO: For the second and subsequent running of the container, enter the following command
     - ```docker start -ia ion```
 4. In the docker, activate python environment
     - ```conda activate chemodel```
