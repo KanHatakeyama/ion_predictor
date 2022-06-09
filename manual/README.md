@@ -41,8 +41,10 @@
         - ```7z x db.7z```
 2. Build image
     - ```docker build -t ion .```
-3. Run (e.g., @ PORT=8000)
-    - ```docker run -p 8000:8000 -it ion```
+3. Initiate and run container (e.g., @ PORT=8000)
+    - ```docker run -it --name ion -v $(pwd):/code -p 8000:8000 ion```
+    - INFO: (2nd time~) You can restart the container by ...
+    - ```docker start -ia ion```
 4. In the docker, activate python environment
     - ```conda activate chemodel```
 5. Launch server

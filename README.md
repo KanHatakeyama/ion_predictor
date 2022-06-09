@@ -17,7 +17,7 @@
 - Database will reset every day
 - Response is slow because it runs on a free server
 
-## [Manual is here!](manual/Manual.md)
+## [Manual is here!](manual/README.md)
 
 # Overview
 ## Chemical database
@@ -33,6 +33,7 @@
 - 2022.4.23 Update manual
 - 2022.4.22 Add tag admin
 - 2022.3.17 First prototype
+- 2022.6.09 Update manual
 
 # Author
 - Kan Hatakeyama-Sato
