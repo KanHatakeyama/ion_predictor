@@ -119,7 +119,7 @@ descriptor_data/*
 *.bin
 *.pth
 *.pth'
-*.gz
+#*.gz
 cache/*
 media/*
 
