@@ -9,14 +9,6 @@
 
 
 # How to use?
-## [DEMO server](https://ionpred.herokuapp.com/admin/) is available!
--  Just wait for ca. 30 seconds to load the page
-- Login info
-    - username: user
-    - pass: user
-- Database will reset every day
-- Response is slow because it runs on a free server
-
 ## [Manual is here!](manual/README.md)
 
 # Overview
