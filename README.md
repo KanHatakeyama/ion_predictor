@@ -37,6 +37,3 @@
 
 # Author
 - Kan Hatakeyama-Sato
-- Waseda University
-- https://kanhatakeyama.github.io/
-- satokan@toki.waseda.(japan)
